@@ -7,7 +7,7 @@ export default function ShaderBackground() {
   const [speed] = useState(1.0)
 
   return (
-    <div className="w-full h-screen bg-black relative overflow-hidden">
+    <div className="fixed inset-0 w-full h-screen bg-black overflow-hidden z-0">
       <MeshGradient
         className="w-full h-full absolute inset-0"
         colors={["#000000", "#000000", "#030a0f", "#48ffff"]}

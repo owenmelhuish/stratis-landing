@@ -21,17 +21,35 @@ export default function HeroContent() {
     setTimeout(() => setIsOpen(false), 300)
   }, [])
 
-  function handleSubmit(e: FormEvent) {
+  const [submitting, setSubmitting] = useState(false)
+
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault()
+    setSubmitting(true)
+    try {
+      await fetch("https://formsubmit.co/ajax/owen@stratis.technology", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          email,
+          company,
+          _cc: "kyle@stratis.technology",
+          _subject: `New Waitlist Submission: ${name}`,
+        }),
+      })
+    } catch {
+      // silently handle
+    }
+    setSubmitting(false)
     close()
-    // TODO: email integration
   }
 
   return (
     <>
       {/* Logo + button */}
       <div
-        className={`flex flex-col items-center gap-5 transition-opacity duration-300
+        className={`flex flex-col items-center gap-5 transition-opacity duration-300 pointer-events-auto
           ${isVisible
             ? "opacity-0 pointer-events-none"
             : "opacity-10 has-[:hover]:opacity-100"}`}
@@ -116,13 +134,14 @@ export default function HeroContent() {
               />
               <button
                 type="submit"
+                disabled={submitting}
                 className="mt-2 w-full py-3 rounded-full bg-white/10 border border-white/20
                   text-white/90 font-[var(--font-quicksand)] font-light text-sm tracking-widest
                   cursor-pointer transition-all duration-300
                   hover:bg-white/15 hover:border-white/30 hover:shadow-[0_0_30px_rgba(255,255,255,0.08)]
-                  active:scale-95"
+                  active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Submit
+                {submitting ? "Submitting..." : "Submit"}
               </button>
             </form>
           </div>

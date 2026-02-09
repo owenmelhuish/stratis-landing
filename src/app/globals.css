@@ -91,3 +91,49 @@ body {
 .hvr-ripple-out:hover::before {
   animation: pulse-out 2s ease-out infinite;
 }
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out;
+}
+
+/* Infinite horizontal scroll */
+@keyframes scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes scroll-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.animate-scroll-left {
+  animation: scroll-left 40s linear infinite;
+}
+
+.animate-scroll-right {
+  animation: scroll-right 40s linear infinite;
+}
+
+/* Orbit animations for card diagram */
+@keyframes orbit-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-orbit-8 {
+  animation: orbit-slow 8s linear infinite;
+}
+
+.animate-orbit-10 {
+  animation: orbit-slow 10s linear infinite;
+}
+
+.animate-orbit-12-reverse {
+  animation: orbit-slow 12s linear infinite reverse;
+}

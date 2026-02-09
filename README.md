@@ -90,6 +90,28 @@ Full-screen MeshGradient shader with colors `[black, black, dark blue, cyan]` at
 - **SEO/OG tags** — metadata exists in layout.tsx but no Open Graph images or detailed meta tags.
 - **`background-paper-shaders.tsx`** — contains ShaderPlane and EnergyRing components that are not currently used. Can be removed or integrated later.
 
+## Deployment
+
+- **Hosting:** Vercel (auto-deploys from GitHub)
+- **Repository:** github.com/owenmelhuish/stratis-landing
+- **Custom Domain:** stratis.technology (DNS via GoDaddy)
+- **Vercel URL:** stratis-landing.vercel.app
+
+### Deployment Workflow
+
+```
+Local code change → git push to main → Vercel auto-deploys → live on stratis.technology
+```
+
+Every push to the `main` branch triggers an automatic production deployment on Vercel. No manual deployment steps are needed.
+
+### DNS Configuration (GoDaddy → Vercel)
+
+| Type | Name | Value |
+|------|------|-------|
+| A | @ | 216.198.79.1 |
+| CNAME | www | cname.vercel-dns.com |
+
 ## Development
 
 ```bash
