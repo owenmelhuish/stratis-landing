@@ -63,7 +63,7 @@ export default function HeroContent() {
           className="invert w-[140px] sm:w-[180px] md:w-[220px] h-auto"
         />
         <p className="text-white/50 text-sm sm:text-base tracking-[0.15em] font-[var(--font-quicksand)] font-light">
-          The Intelligent Marketing OS
+          The Intelligent OS
         </p>
         <div className="pointer-events-auto">
           <button
