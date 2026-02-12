@@ -137,3 +137,28 @@ body {
 .animate-orbit-12-reverse {
   animation: orbit-slow 12s linear infinite reverse;
 }
+
+/* Scroll indicator dot */
+@keyframes scroll-dot {
+  0% { opacity: 1; transform: translateY(0); }
+  70% { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 0; transform: translateY(8px); }
+}
+
+.animate-scroll-dot {
+  animation: scroll-dot 1.8s ease-out infinite;
+}
+
+/* Data stream noodles pulsing into flywheel */
+@keyframes stream-pulse {
+  0% { stroke-dashoffset: 200; opacity: 0; }
+  10% { opacity: 1; }
+  60% { opacity: 0.6; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
+}
+
+.animate-stream-pulse {
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  animation: stream-pulse 3.5s ease-in infinite;
+}

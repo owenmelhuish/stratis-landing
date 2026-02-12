@@ -22,8 +22,8 @@ export default function SolutionSection() {
           style={{ fontFamily: "var(--font-playfair)" }}
           className="italic text-4xl sm:text-5xl lg:text-7xl leading-[1.1] text-center mb-8"
         >
-          <span className="text-white/40">Not a dashboard you open, </span>
-          <span className="text-white">a presence you work with.</span>
+          <span className="text-white/40">The operating system built to power </span>
+          <span className="text-white">the future of marketing.</span>
         </h2>
 
         {/* Subtitle */}

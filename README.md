@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Single-page landing site for STRATIS built with Next.js 16, React 19, TypeScript, and Tailwind CSS 4. Features a full-screen animated shader background with a glassmorphism waitlist signup form.
+Multi-section landing site for STRATIS at stratis.technology. Built with Next.js 16, React 19, TypeScript, and Tailwind CSS 4. Features a full-screen animated shader background, parallax scroll architecture, glassmorphism sections, and a waitlist signup form with email integration.
 
 ## Tech Stack
 
@@ -10,85 +10,171 @@ Single-page landing site for STRATIS built with Next.js 16, React 19, TypeScript
 - **UI:** React 19.2.3, TypeScript 5
 - **Styling:** Tailwind CSS 4 via `@tailwindcss/postcss`
 - **3D/Shaders:** Three.js 0.182, @react-three/fiber 9.5, @paper-design/shaders-react 0.0.71
-- **Fonts:** Geist Sans, Geist Mono, Quicksand (loaded via next/font/google)
+- **Fonts:** Geist Sans, Geist Mono, Quicksand (light body text), Playfair Display (serif italic headlines) — all via next/font/google
+- **Email:** FormSubmit.co (no backend required)
 
 ## Directory Structure
 
 ```
 src/
 ├── app/
-│   ├── layout.tsx          # Root layout — fonts, metadata ("STRATIS - Join the Waitlist"), dark mode
-│   ├── page.tsx            # Home page — renders ShaderBackground + HeroContent
-│   ├── globals.css         # Tailwind config, CSS variables (OKLCH colors), ripple animation
+│   ├── layout.tsx              # Root layout — fonts (Geist, Quicksand, Playfair Display), metadata, dark mode
+│   ├── page.tsx                # Home page — parallax layout with fixed hero + scrollable sections
+│   ├── globals.css             # Tailwind config, CSS variables, animations (orbit, scroll, fade, ripple)
 │   └── favicon.ico
 └── components/
-    ├── hero-content.tsx    # Client component — logo, waitlist button, modal form, all state
-    ├── shader-background.tsx # Client component — MeshGradient (black/cyan palette), pulsing overlays
+    ├── hero-content.tsx        # Client — logo, subtext, waitlist button, modal form with FormSubmit integration
+    ├── shader-background.tsx   # Client — fixed MeshGradient (black/cyan palette), pulsing overlays
+    ├── problem-section.tsx     # "Built for the Modern Marketer" — headline, quote, stats pill, CTA
+    ├── solution-section.tsx    # "Introducing STRATIS" — 3 staggered feature cards with SVG diagrams
+    ├── flywheel-section.tsx    # Animated circular flywheel — 4 segments with orbiting dot, descriptions
+    ├── social-proof-section.tsx # Client logo grid, "The Emerging Standard", infinite-scroll testimonials
     └── ui/
         └── background-paper-shaders.tsx # Unused Three.js utilities (ShaderPlane, EnergyRing)
 public/
-└── stratis-logo.svg        # Brand logo (inverted white via CSS)
+└── stratis-logo.svg            # Brand logo (inverted white via CSS)
 ```
 
 ## Architecture
 
+### Parallax Scroll Layout
+
+The page uses a layered parallax architecture:
+
 ```
 page.tsx (server component)
-└── <main> full-screen container
-    ├── <ShaderBackground />   — absolute, fills viewport, animated gradient
-    └── <HeroContent />        — absolute overlay, z-10, centered
-        ├── Logo + "Apply For The Waitlist" button (opacity-10, visible on hover)
-        └── Modal form (fixed overlay, z-50, shown on button click)
+├── <ShaderBackground />           — fixed, z-0, full viewport animated gradient
+├── <HeroContent /> wrapper        — fixed, z-10, centered, pointer-events-none
+│   └── Logo + subtext + CTA      — pointer-events-auto (clickable when uncovered)
+└── Scrollable content wrapper     — relative, z-20, pointer-events-none
+    ├── <div h-screen />           — transparent spacer (hero visible, clickable)
+    ├── Sections wrapper           — pointer-events-auto
+    │   ├── <ProblemSection />
+    │   ├── <SolutionSection />
+    │   ├── <FlywheelSection />
+    │   └── <SocialProofSection />
+    ├── Gradient fade div          — h-32, fades from black/70 to transparent
+    └── <div h-screen />           — transparent spacer (hero visible again, clickable)
 ```
 
-### Key Component: `hero-content.tsx`
+**Key design decision:** The z-20 scrollable wrapper has `pointer-events-none` so the transparent spacers at the top and bottom allow clicks to pass through to the hero at z-10. The actual sections are wrapped in a `pointer-events-auto` div.
 
-This is the main interactive component. It manages all UI state:
+### Sections Detail
 
-- **`isOpen`** — controls whether the modal is mounted in the DOM
-- **`isVisible`** — triggers CSS opacity/scale transitions one frame after mount (via `requestAnimationFrame`)
+#### 1. Problem Section (`problem-section.tsx`)
+- Label: "BUILT FOR THE MODERN MARKETER"
+- Playfair italic headline with tonal variation (dim/bright text)
+- Testimonial quote with avatar placeholder
+- Stats pill: "EARLY ACCESS PILOTS UNDERWAY"
+- "Learn More" CTA button
+- Background: `bg-black/70 backdrop-blur-sm`
+
+#### 2. Solution Section (`solution-section.tsx`)
+- Badge: "INTRODUCING STRATIS" with pulsing cyan dot
+- Headline: "Not a dashboard you open, a presence you work with."
+- 3 staggered feature cards (`md:mt-12` on cards 1 & 3, card 2 raised):
+  - **Unified Live Signal Layer** — SVG converging streams diagram (7 streams, cyan/white, glow filter)
+  - **Always-On Intelligence** — Concentric circles with 6 animated orbiting dots (CSS orbit animations)
+  - **Autonomous Market Execution** — Same streams diagram flipped via `scaleX(-1)`
+- Cards use `flex flex-col` with `flex-1 min-h-8` spacers to align diagrams
+- "Explore Capabilities" CTA
+
+#### 3. Flywheel Section (`flywheel-section.tsx`)
+- 4-segment circular SVG diagram: Seeing, Sensing, Reasoning, Responding
+- Smooth continuous orbit via `requestAnimationFrame` (~24s per revolution)
+- Active segment highlight (cyan fill) follows the orbiting dot
+- Center: pulsing cyan glow with "LIVE" text
+- Description text below fades in per active segment
+- Diagram sizes: `w-[400px] sm:w-[560px] lg:w-[720px]`
+
+#### 4. Social Proof Section (`social-proof-section.tsx`)
+- Top: 4x2 client logo grid + "BUILT FOR THE MODERN MARKETER" label + "The Emerging Standard." headline + STRATIS body copy + "LEARN MORE" CTA
+- Bottom: Two rows of infinite-scrolling testimonial cards (opposite directions, 40s cycle)
+- Testimonials are brand case study results with metrics
+- Each card shows handle, quote, role, and "Case Study" label
+
+### Hero Content (`hero-content.tsx`)
+
+Main interactive component managing all UI state:
+
+- **`isOpen`** — controls whether the modal is mounted
+- **`isVisible`** — triggers CSS opacity/scale transitions one frame after mount
+- **`submitting`** — loading state during form submission
 - **Form fields:** `name`, `company`, `email`
+
+**Hero elements:**
+- STRATIS logo (responsive: 140px / 180px / 220px)
+- Subtext: "The Intelligent OS"
+- "Apply For The Waitlist" CTA button with ripple hover effect
 
 **Animation flow:**
 1. Click button -> `isOpen = true` (mounts modal at opacity-0, scale-95)
 2. Next frame -> `isVisible = true` (transitions to opacity-100, scale-100 over 300ms)
-3. Simultaneously, the logo+button wrapper transitions to opacity-0
-4. Close (X, backdrop click, or submit) -> `isVisible = false` (fade out), then after 300ms `isOpen = false` (unmount)
+3. Logo+button wrapper transitions to opacity-0
+4. Close -> `isVisible = false` (fade out), then after 300ms `isOpen = false` (unmount)
 
-**Hover behavior:** The logo+button wrapper starts at `opacity-10` and uses Tailwind's `has-[:hover]:opacity-100` to become fully visible when the user hovers over the button area.
+**Hover behavior:** Logo+button starts at `opacity-10`, uses `has-[:hover]:opacity-100` on hover.
 
-### Key Component: `shader-background.tsx`
+### Shader Background (`shader-background.tsx`)
 
-Full-screen MeshGradient shader with colors `[black, black, dark blue, cyan]` at speed 1.0. Three pulsing radial gradient overlays animate on top at staggered intervals (2-4s cycles).
+Fixed full-screen MeshGradient with colors `[black, black, dark blue, cyan]` at speed 1.0. Three pulsing radial gradient overlays at staggered intervals (2-4s cycles).
 
 ## Styling Patterns
 
-- **Glassmorphism:** `bg-white/10 backdrop-blur-xl border border-white/20` (button), `backdrop-blur-2xl` (modal)
-- **Text:** Quicksand light (font-weight 300), white with alpha (`text-white/90`, `placeholder-white/40`)
-- **Inputs:** `bg-white/5 border-white/15 rounded-xl`, focus state brightens border to `white/40`
-- **Buttons:** `rounded-full`, glow on hover (`shadow-[0_0_30px_rgba(255,255,255,0.08)]`), `active:scale-95`
-- **Ripple effect:** `.hvr-ripple-out` class in globals.css — radial gradient pulse animation on hover via `::before` pseudo-element
+- **Glassmorphism sections:** `bg-black/70 backdrop-blur-sm` (lets shader bleed through)
+- **Glassmorphism cards:** `bg-white/[0.03] backdrop-blur-sm border border-white/10 rounded-xl`
+- **Serif headlines:** Playfair Display italic via `style={{ fontFamily: "var(--font-playfair)" }}` (Tailwind arbitrary values don't reliably resolve CSS variable fonts)
+- **Body text:** Quicksand light (font-weight 300), `text-white/50` to `text-white/60`
+- **Labels:** `text-xs tracking-[0.25em] uppercase`, `text-white/40`
+- **Buttons:** `rounded-full border border-white/15 bg-white/5`, hover brightens
+- **Accent color:** Cyan (`text-cyan-400`, `rgba(72,255,255,...)`)
+- **Ripple effect:** `.hvr-ripple-out` — radial gradient pulse animation via `::before`
+
+## CSS Animations (globals.css)
+
+| Class | Purpose |
+|---|---|
+| `.hvr-ripple-out` | Radial gradient pulse on hover (hero CTA) |
+| `.animate-fade-in` | Fade in + translateY for flywheel descriptions |
+| `.animate-scroll-left` | Infinite horizontal scroll left, 40s (testimonials row 1) |
+| `.animate-scroll-right` | Infinite horizontal scroll right, 40s (testimonials row 2) |
+| `.animate-orbit-8` | 8s circular orbit (solution card dots) |
+| `.animate-orbit-10` | 10s circular orbit (solution card dots) |
+| `.animate-orbit-12-reverse` | 12s reverse circular orbit (solution card dots) |
+
+## Email Integration
+
+Waitlist form submissions are sent via **FormSubmit.co** (AJAX mode):
+
+- **Primary recipient:** owen@stratis.technology
+- **CC:** kyle@stratis.technology
+- **Subject:** "New Waitlist Submission: {name}"
+- **Fields sent:** name, email, company
+
+**Setup note:** The first submission triggers a confirmation email from FormSubmit to owen@stratis.technology. Click the confirmation link to activate. After that, all submissions flow automatically.
+
+No backend API route, no packages, no API keys required.
 
 ## Current Status
 
 ### Done
-- Full-screen shader background with animated gradients
-- Responsive logo (140px / 180px / 220px breakpoints)
-- Glassmorphism waitlist button with ripple hover effect
-- Modal form with fade-in/fade-out + scale animation
-- Form fields: Name (required), Company (optional), Email (required)
-- Logo+button fade out when form opens, fade back in on close
-- Backdrop click and X button to dismiss
-- Form validation (HTML5 required attributes)
+- Full parallax scroll landing page with shader background
+- Hero section with logo, subtext ("The Intelligent OS"), and waitlist CTA
+- 4 content sections with glassmorphism styling
+- Animated SVG diagrams (converging streams, orbiting dots, flywheel)
+- Infinite-scroll testimonial carousel
+- Waitlist form with email integration (FormSubmit.co)
+- Interactive hero (hover/click) works at top and bottom of page
+- Responsive design across all breakpoints
 
 ### TODO
-- **Email/submission integration** — `handleSubmit` in `hero-content.tsx` (around line 25) currently just closes the modal. Needs: API route, email service (Resend, SendGrid, etc.), success/error feedback.
-- **Waitlist data persistence** — no database yet. Consider Supabase, PlanetScale, or simple webhook to a spreadsheet.
-- **Success/error states** — no toast or confirmation message after submit.
+- **Waitlist data persistence** — no database. Consider Supabase or webhook to spreadsheet.
+- **Success/error states** — no toast or confirmation message after form submit.
 - **Rate limiting** — no protection against spam submissions.
 - **Analytics** — no tracking on page views or form submissions.
 - **SEO/OG tags** — metadata exists in layout.tsx but no Open Graph images or detailed meta tags.
-- **`background-paper-shaders.tsx`** — contains ShaderPlane and EnergyRing components that are not currently used. Can be removed or integrated later.
+- **Client logos** — logo grid currently shows placeholder text, needs real logo assets.
+- **`background-paper-shaders.tsx`** — unused Three.js components. Can be removed.
 
 ## Deployment
 

@@ -65,10 +65,67 @@ export default function FlywheelSection() {
     <section className="relative bg-black/70 backdrop-blur-sm">
       <div className="max-w-6xl mx-auto px-8 sm:px-12 lg:px-16 py-24 sm:py-32 lg:py-40">
         <div className="flex flex-col items-center">
+          {/* Headline */}
+          <h2
+            style={{ fontFamily: "var(--font-playfair)" }}
+            className="italic text-4xl sm:text-5xl lg:text-7xl leading-[1.1] text-center mb-6"
+          >
+            <span className="text-white/40">The Engine of </span>
+            <span className="text-white">Compounding Performance</span>
+          </h2>
+
+          {/* Subtext */}
+          <p className="text-white/50 text-base sm:text-lg text-center max-w-2xl mx-auto font-[var(--font-quicksand)] font-light leading-relaxed mb-4 sm:mb-6">
+            STRATIS is an always-on system that turns real-time signals into intelligent action. Creating sustained performance over time.
+          </p>
           <div className="relative w-[400px] h-[400px] sm:w-[560px] sm:h-[560px] lg:w-[720px] lg:h-[720px]">
+            {/* Data stream noodles — behind the diagram */}
             <svg
               viewBox="0 0 400 400"
-              className="w-full h-full"
+              className="absolute inset-0 w-full h-full"
+              fill="none"
+            >
+              <defs>
+                <radialGradient id="streamFade" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stopColor="rgba(72,255,255,0)" />
+                  <stop offset="40%" stopColor="rgba(72,255,255,0)" />
+                  <stop offset="70%" stopColor="rgba(72,255,255,0.12)" />
+                  <stop offset="100%" stopColor="rgba(72,255,255,0.12)" />
+                </radialGradient>
+                <mask id="streamMask">
+                  <rect width="400" height="400" fill="url(#streamFade)" />
+                </mask>
+              </defs>
+              <g mask="url(#streamMask)">
+                {[
+                  { d: "M 10,80 C 60,90 120,140 200,200", delay: "0s", dur: "3.5s" },
+                  { d: "M 50,10 C 80,60 150,110 200,200", delay: "1s", dur: "3s" },
+                  { d: "M 350,30 C 320,80 260,130 200,200", delay: "1.8s", dur: "3.2s" },
+                  { d: "M 390,150 C 340,160 270,170 200,200", delay: "0.5s", dur: "3.4s" },
+                  { d: "M 380,340 C 330,310 270,260 200,200", delay: "2.5s", dur: "3s" },
+                  { d: "M 60,370 C 90,320 140,260 200,200", delay: "1.4s", dur: "3.6s" },
+                ].map((stream, i) => (
+                  <path
+                    key={`stream-${i}`}
+                    d={stream.d}
+                    fill="none"
+                    stroke="rgba(72,255,255,0.15)"
+                    strokeWidth="1"
+                    strokeLinecap="round"
+                    className="animate-stream-pulse"
+                    style={{
+                      animationDelay: stream.delay,
+                      animationDuration: stream.dur,
+                    }}
+                  />
+                ))}
+              </g>
+            </svg>
+
+            {/* Main flywheel diagram */}
+            <svg
+              viewBox="0 0 400 400"
+              className="relative w-full h-full"
               fill="none"
             >
               <defs>

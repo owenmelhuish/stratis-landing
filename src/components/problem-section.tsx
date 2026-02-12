@@ -28,21 +28,13 @@ export default function ProblemSection() {
           </span>
         </h2>
 
-        {/* Testimonial row */}
-        <div className="flex flex-col md:flex-row gap-10 md:gap-16 items-start mb-16">
-          {/* Portrait photo */}
-          <div className="w-64 h-72 sm:w-72 sm:h-80 flex-shrink-0 rounded-2xl border border-white/10 overflow-hidden bg-gradient-to-b from-white/5 to-black">
-            <div className="w-full h-full bg-gradient-to-b from-gray-600/30 via-gray-800/40 to-black" />
-          </div>
-
-          {/* Quote */}
-          <div className="flex flex-col justify-center pt-4">
-            <span className="text-white/20 text-4xl font-serif leading-none mb-4">&#x201C;</span>
-            <p className="text-white/70 text-base sm:text-lg leading-relaxed max-w-lg font-[var(--font-quicksand)] font-light">
-              &quot;I&apos;m constantly piecing together signals from different tools, yet I never quite trust that I&apos;m seeing the full picture. Most of my time is spent chasing data, not understanding it — and by the time it makes sense, the market has already shifted again.&quot;
-            </p>
-          </div>
-        </div>
+        {/* Supporting paragraph */}
+        <p
+          style={{ fontFamily: "var(--font-playfair)" }}
+          className="italic text-4xl sm:text-5xl lg:text-6xl leading-[1.15] max-w-4xl text-white/50 mb-16"
+        >
+          <span className="text-white font-bold">Imagine giving marketers their own Mission Control</span> — a central command center that connects every data signal surrounding a brand, interpreting market shifts in real time, surfacing emerging opportunities, and activating instantly in market. Turning fragmented information into an intelligent, connected ecosystem.
+        </p>
 
         {/* Bottom row: stat pill + CTA */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
