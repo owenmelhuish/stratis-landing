@@ -30,7 +30,7 @@ export default function Home() {
         <div className="h-screen" />
 
         {/* Sections scroll over the fixed hero */}
-        <div className="pointer-events-auto">
+        <div id="content" className="pointer-events-auto">
           <SolutionSection />
           <ProblemSection />
           <FlywheelSection />

@@ -65,7 +65,21 @@ export default function HeroContent() {
         <p className="text-white/50 text-sm sm:text-base tracking-[0.15em] font-[var(--font-quicksand)] font-light">
           The Intelligent Marketing OS
         </p>
-        <div className="pointer-events-auto">
+        <div className="pointer-events-auto flex flex-col items-center gap-3">
+          <button
+            type="button"
+            onClick={() => {
+              document.getElementById("content")?.scrollIntoView({ behavior: "smooth" })
+            }}
+            className="px-8 py-3 rounded-full
+              bg-white/10 backdrop-blur-xl border border-white/20
+              text-white/90 font-[var(--font-quicksand)] font-light text-sm tracking-widest
+              cursor-pointer transition-all duration-300
+              hover:bg-white/15 hover:border-white/30 hover:shadow-[0_0_30px_rgba(255,255,255,0.08)]
+              active:scale-95"
+          >
+            Learn More
+          </button>
           <button
             type="button"
             onClick={() => setIsOpen(true)}
