@@ -18,10 +18,10 @@ export default function ProblemSection() {
           className="italic text-4xl sm:text-5xl lg:text-6xl leading-[1.15] max-w-4xl mb-20 sm:mb-28"
         >
           <span className="text-white/80">
-            The modern marketing team doesn&apos;t operate in a single channel —{" "}
+            The modern marketing team doesn&apos;t operate in a single channel.{" "}
           </span>
           <span className="text-white/50">
-            they manage siloed ecosystems, fragmented data, and constant change. Signals compound. Context shifts.
+            They manage siloed ecosystems, fragmented data, and constant change. Signals compound. Context shifts.
           </span>
           <span className="text-white font-bold">
             {" "}The market moves faster than teams can keep up.
@@ -33,7 +33,7 @@ export default function ProblemSection() {
           style={{ fontFamily: "var(--font-playfair)" }}
           className="italic text-4xl sm:text-5xl lg:text-6xl leading-[1.15] max-w-4xl text-white/50 mb-16"
         >
-          <span className="text-white font-bold">Imagine giving marketers their own Mission Control</span> — a central command center that connects every data signal surrounding a brand, interpreting market shifts in real time, surfacing emerging opportunities, and activating instantly in market. Turning fragmented information into an intelligent, connected ecosystem.
+          <span className="text-white font-bold">Imagine giving marketers their own Mission Control:</span> a central command center that connects every data signal surrounding a brand, interpreting market shifts in real time, surfacing emerging opportunities, and activating instantly in market. Turning fragmented information into an intelligent, connected ecosystem.
         </p>
 
         {/* Bottom row: stat pill + CTA */}
