@@ -17,7 +17,7 @@ const segments = [
   },
   {
     label: "Responding",
-    description: "Executing decisions in market autonomously — adjusting strategy, reallocating spend, and responding on platform within defined guardrails and approval logic.",
+    description: "Executing decisions in market autonomously, adjusting strategy, reallocating spend, and responding on platform within defined guardrails and approval logic.",
   },
 ]
 

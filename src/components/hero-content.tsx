@@ -52,7 +52,7 @@ export default function HeroContent() {
         className={`flex flex-col items-center gap-5 transition-opacity duration-300 pointer-events-auto
           ${isVisible
             ? "opacity-0 pointer-events-none"
-            : "opacity-10 has-[:hover]:opacity-100"}`}
+            : "opacity-90 has-[:hover]:opacity-100"}`}
       >
         <Image
           src="/stratis-logo.svg"

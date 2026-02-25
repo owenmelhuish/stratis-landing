@@ -120,27 +120,13 @@ export default function SocialProofSection() {
             {/* Body copy */}
             <div className="space-y-4 mb-8">
               <p className="text-white/60 text-sm sm:text-base font-[var(--font-quicksand)] font-light leading-relaxed">
-                Across high-velocity organizations, the expectations of marketing intelligence are changing. As complexity increases, leading teams are adopting systems that operate continuously — unifying signals, detecting opportunity, and responding in real time.
+                Across high-velocity organizations, the expectations of marketing intelligence are changing. As complexity increases, leading teams are adopting systems that operate continuously, unifying signals, detecting opportunity, and responding in real time.
               </p>
               <p className="text-white/60 text-sm sm:text-base font-[var(--font-quicksand)] font-light leading-relaxed">
                 This shift enables stronger brand performance, reduced latency, and the ability to capitalize on moments that would otherwise pass unnoticed. STRATIS was not built to meet this new standard, STRATIS is the new standard.
               </p>
             </div>
 
-            {/* CTA button */}
-            <div>
-              <button
-                type="button"
-                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border border-white/15 bg-white/5
-                  text-white/70 text-xs tracking-[0.2em] uppercase font-[var(--font-quicksand)] font-light
-                  cursor-pointer transition-all duration-300
-                  hover:bg-white/10 hover:border-white/25
-                  active:scale-95"
-              >
-                LEARN MORE
-                <span className="text-cyan-400 text-[8px]">●</span>
-              </button>
-            </div>
           </div>
         </div>
       </div>

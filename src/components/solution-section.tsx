@@ -94,7 +94,7 @@ export default function SolutionSection() {
               Insight that doesn&apos;t wait for reports.
             </p>
             <p className="text-white/50 text-sm font-[var(--font-quicksand)] font-light leading-relaxed mb-8">
-              STRATIS continuously monitors incoming signals, identifying patterns, anomalies, and emerging opportunities in real time — before they become obvious, and before the moment passes.
+              STRATIS continuously monitors incoming signals, identifying patterns, anomalies, and emerging opportunities in real time, before they become obvious, and before the moment passes.
             </p>
             {/* Mock intelligence UI */}
             <div className="flex flex-col items-center py-6">
@@ -145,7 +145,7 @@ export default function SolutionSection() {
               From insight to action, without delay.
             </p>
             <p className="text-white/50 text-sm font-[var(--font-quicksand)] font-light leading-relaxed">
-              STRATIS can execute decisions directly in market — adjusting strategy, reallocating spend, and responding on platform autonomously, governed by human guidance.
+              STRATIS can execute decisions directly in market, adjusting strategy, reallocating spend, and responding on platform autonomously, governed by human guidance.
             </p>
             <div className="flex-1 min-h-8" />
             {/* Diverging streams diagram (flipped) */}
@@ -190,20 +190,6 @@ export default function SolutionSection() {
           </div>
         </div>
 
-        {/* Bottom CTA */}
-        <div className="flex justify-center">
-          <button
-            type="button"
-            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full border border-white/15 bg-white/5
-              text-white/80 text-sm tracking-wider font-[var(--font-quicksand)] font-light
-              cursor-pointer transition-all duration-300
-              hover:bg-white/10 hover:border-white/25
-              active:scale-95"
-          >
-            Explore Capabilities
-            <span className="text-white/50">→</span>
-          </button>
-        </div>
       </div>
     </section>
   )
