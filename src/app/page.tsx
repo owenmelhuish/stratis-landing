@@ -17,7 +17,8 @@ export default function Home() {
         <HeroContent />
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-70">
+          <span className="text-[10px] font-medium tracking-[0.3em] uppercase text-white/80">Scroll Down</span>
           <div className="w-5 h-8 rounded-full border border-white/60 flex items-start justify-center p-1.5">
             <div className="w-0.5 h-1.5 rounded-full bg-white/80 animate-scroll-dot" />
           </div>
